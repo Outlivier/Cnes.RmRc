@@ -1,0 +1,12 @@
+# Récursif
+*.lnk
+*.suo
+*.user
+.vs
+_*.log
+_obj
+AssemblyInfoGenerated.cs
+bin-debug
+bin-release
+
+#————
