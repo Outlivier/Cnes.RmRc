@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project>
+
+	<PropertyGroup>
+
+		<!-- Produit -->
+		<Authors>CNES</Authors>
+		<Company>CNES</Company>
+		<Product>MOWGLI-II</Product>
+		<Copyright>Copyright © CNES 2024</Copyright>
+
+		<!-- Nommage -->
+		<RootNamespace>Cnes.$(MSBuildProjectName)</RootNamespace>
+		<AssemblyName>Cnes.$(MSBuildProjectName)</AssemblyName>
+		<AssemblyTitle>Cnes.$(MSBuildProjectName)</AssemblyTitle>
+		<PackageId>Cnes.$(MSBuildProjectName)</PackageId>
+
+		<!-- Version -->
+		<Version>1.0.0</Version>
+
+		<!-- Ressources -->
+		<NeutralLanguage>fr</NeutralLanguage>
+
+		<!-- Compilation -->
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+		<Deterministic>true</Deterministic>
+		<RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+		<BaseIntermediateOutputPath>.out\_obj</BaseIntermediateOutputPath>
+
+		<!-- Sortie -->
+		<OutputPath>.out\bin-$(Configuration.ToLower())</OutputPath>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+
+		<!-- C# >= 8.0 -->
+		<!--
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		-->
+
+		<!-- Dossier spécial "Properties" renommé en ".props" -->
+		<AppDesignerFolder>.props</AppDesignerFolder>
+
+	</PropertyGroup>
+
+	<!-- Checksum Git -->
+	<Target Name="SetSourceRevisionId" BeforeTargets="InitializeSourceControlInformation">
+		<Exec Command="git describe --long --always --dirty --exclude=* --abbrev=8" ConsoleToMSBuild="True" IgnoreExitCode="False">
+			<Output PropertyName="SourceRevisionId" TaskParameter="ConsoleOutput" />
+		</Exec>
+	</Target>
+
+	<!-- Analyse de code -->
+	<PropertyGroup Condition="'$(Configuration)' != 'Release'">
+		<RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
+	</PropertyGroup>
+	<PropertyGroup>
+		<EnableNETAnalyzers>true</EnableNETAnalyzers>
+		<AnalysisMode>AllEnabledByDefault</AnalysisMode>
+		<AnalysisLevel>latest</AnalysisLevel>
+	</PropertyGroup>
+
+	<!-- Warnings de compilation -->
+	<PropertyGroup>
+		<!-- NU1803 : Les sources NuGet Datian ne sont pas en HTTPS ce qui provoque des avertissements. -->
+		<NoWarn>NU1803</NoWarn>
+	</PropertyGroup>
+</Project>

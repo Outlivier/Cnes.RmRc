@@ -1,0 +1,57 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<style>
+        body {
+            font-family: Calibri;
+		}
+		.milestone {
+			font-size: 10pt;
+		}
+		.milestone h1 {
+			font-size: 13pt; color: #2e75b5;  font-weight: bold;
+		}
+		.milestone h2 {
+			font-size: 12pt; color: #2e75b5;  font-weight: normal;
+		}
+		.milestone h3 {
+			font-size: 11pt; color: #2e75b5;  font-weight: normal;
+		}
+		table {
+			border-collapse: collapse;
+		}
+		table, th, td {
+			border: 1px solid #C6C6C6;
+		}
+		td {
+			padding: 0.25rem;
+		}
+        .title {
+        }
+        .description {
+            font-size: 9pt;
+        }
+		.label {
+			vertical-align: top;
+		}
+		%LABELS%
+	</style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/remarkable/2.0.1/remarkable.min.js"></script>
+</head>
+<body>
+<table>
+	<div id="milestone" class="milestone">%MIL%</div>
+	%TR%
+</table>
+<script>
+	var md = new remarkable.Remarkable();
+    md.set({ linkify: true }); // http sera automatiquement transformé en lien
+	var elements = document.querySelectorAll(".description");
+	Array.prototype.forEach.call(elements, function(el, i) {
+		el.innerHTML = md.render(el.textContent);
+	});
+	var milesetone = document.getElementById("milestone");
+	milesetone.innerHTML = md.render(milesetone.textContent);
+</script>
+</body>
+</html>

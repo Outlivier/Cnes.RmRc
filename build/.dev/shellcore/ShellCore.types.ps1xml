@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Types>
+	<Type>
+		<Name>System.IO.FileInfo</Name>
+			<Members>
+				<ScriptProperty>
+					<Name>NameWithoutExtension</Name>
+					<GetScriptBlock>
+						[IO.Path]::GetFileNameWithoutExtension($this.Name)
+					</GetScriptBlock>
+				</ScriptProperty>
+			</Members>
+	</Type>
+	<Type>
+		<Name>System.String</Name>
+		<Members>
+			<ScriptProperty>
+				<Name>IsNullOrEmpty</Name>
+				<GetScriptBlock>
+					[string]::IsNullOrEmpty($this)
+				</GetScriptBlock>
+			</ScriptProperty>
+		</Members>
+	</Type>
+	<Type>
+		<Name>System.String</Name>
+		<Members>
+			<ScriptProperty>
+				<Name>IsNullOrWhiteSpace</Name>
+				<GetScriptBlock>
+					[string]::IsNullOrWhiteSpace($this)
+				</GetScriptBlock>
+			</ScriptProperty>
+		</Members>
+	</Type>
+</Types>

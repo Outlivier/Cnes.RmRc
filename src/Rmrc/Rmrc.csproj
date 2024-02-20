@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<!-- Paquet NuGet -->
+	<PropertyGroup>
+		<PackageId>CNES.RmRc</PackageId>
+		<PackageType>Dependency</PackageType>
+	</PropertyGroup>		
+
+
+	<ItemGroup>
+		<EditorConfigFiles Remove="D:\dev-client\Cnes.RmRc\src\Rmrc\.editorconfig" />
+	</ItemGroup>
+</Project>

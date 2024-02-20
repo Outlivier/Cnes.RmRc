@@ -9,4 +9,7 @@ AssemblyInfoGenerated.cs
 bin-debug
 bin-release
 
+# Projet
+.userconfig
+
 #————

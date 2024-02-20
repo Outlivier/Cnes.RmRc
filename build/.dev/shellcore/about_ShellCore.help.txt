@@ -1,0 +1,5 @@
+TOPIC
+	about_ShellCore
+
+SHORT DESCRIPTION
+	Module utilitaire Datian regroupant des cmdlets variés.

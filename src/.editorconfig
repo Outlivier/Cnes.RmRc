@@ -1,0 +1,101 @@
+﻿# Pour en savoir plus sur .editorconfig, consultez https://aka.ms/editorconfigdocs
+root = true
+
+
+[*]
+#================================================
+# Paramètres globaux
+#================================================
+;insert_final_newline = Préférence personnelle : pas de ligne vide à la fin du fichier.
+;
+charset              = utf-8-bom
+end_of_line          = crlf
+insert_final_newline = false
+# Indentation
+tab_width            = 4
+indent_size          = 4
+indent_style         = tab
+
+
+
+[*.cs]
+#================================================
+#  Conventions de codage .NET
+#================================================
+# Namespace
+; - On déclare les namespaces sans accolades : `namespace Datian.MyNamespace;`.
+; - L’espace de nom de correspond pas forcément à la structure des dossiers,
+;   cette règle abouti à des namespaces trops longs si l'on utilise des sous-dossiers.
+csharp_style_namespace_declarations     = file_scoped
+dotnet_style_namespace_match_folder     = false
+
+# Usings
+; - Les `using System.*` sont triés par ordre alphabétique et placés avant les autres directives using.
+; - Pas de ligne vide entre groupes de directives `using`.
+; - On préfère les using à l'interieur du namespace plutôt que déclarés avant.
+;   Voir https://stackoverflow.com/questions/125319
+dotnet_sort_system_directives_first     = true
+dotnet_separate_import_directive_groups = false
+csharp_using_directive_placement        = inside_namespace
+
+# Accolades
+; - Pour les éléments listés, l'accolade doit être sur une nouvelle ligne (style "Allman").
+;   Les accolades sont donc sur la même ligne pour les éléments suivants : accessors (getter et setter), control_blocks, events, indexers.
+; - On n'utilise pas les accolades lorsqu'elles ne sont pas nécessaires : `if (test) this.Display();`.
+; - On préfère les using sans accolades {…} lorsque c'est possible.
+csharp_new_line_before_open_brace    = anonymous_methods,anonymous_types,lambdas,local_functions,methods,object_collection_array_initializers,properties,types
+csharp_prefer_braces                 = false
+csharp_prefer_simple_using_statement = false:silent
+
+# Modificateurs d'accessibilité
+; - On ne spécifie les modificateurs d'accessibilité que si différent de la valeur par défaut.
+dotnet_style_require_accessibility_modifiers = omit_if_default
+
+# this.
+; On laisse le choix, la prèférence reste à l'utilisation de `this`.
+; - Préfixe `this` pour les champs : `this.capacity = 0`.
+; - Préfixe `this` pour les propriétés : `this.Age = 15`.
+; - Préfixe `this` pour les méthodes : `this.Display()`.
+; - Préfixe `this` pour les évènements : `this.Elapsed += Handler`.
+dotnet_style_qualification_for_field    = true:silent
+dotnet_style_qualification_for_property = true:silent
+dotnet_style_qualification_for_method   = true:silent
+dotnet_style_qualification_for_event    = true:silent
+
+# Expression ternaire
+; On laisse le choix d'utiliser une expression ternaire ou non, parfois le if else est plus lisible.
+; - Pour les affectation, on préfefère l'expression ternaire au if else : `string s = expr ? "hello" : "world"`
+; - Pour les return, on préfefère l'expression ternaire au if else : `return expr ? "hello" : "world"`
+dotnet_style_prefer_conditional_expression_over_assignment = true:silent
+dotnet_style_prefer_conditional_expression_over_return     = true:silent
+
+
+#================================================
+#  Analyse de code
+#================================================
+[*.cs]
+#
+# Active toute les règles IDExxxx
+#
+dotnet_analyzer_diagnostic.category-Style.severity = suggestion
+
+
+# CA1303: Ne pas passer de littéraux en paramètres localisés
+# WHY   : Cette aplication ne sera jamais internationalisée, on n'utilise pas toujours les chaînes dans des ressources par simplicité,
+#         de même les messages destinés au fichier de log.
+#         Toute chaîne à traduire est trouvable en cherchant "i18n".
+dotnet_diagnostic.CA1303.severity = none
+
+# CA1848: Utiliser les délégués LoggerMessage
+# WHY   : C'est de la suroptimisation dans la plupart des cas.
+dotnet_diagnostic.CA1848.severity = none
+
+# CA2254: Le modèle doit être une expression statique.
+# WHY   : "Le modèle de message de journalisation ne doit pas varier entre les appels."
+#         Règle qui se déclenche lors de l'utilisation d'un message de resource dans un log : this.log.LogInformation(Messages.MyMessage);
+#         cf. https://github.com/dotnet/roslyn-analyzers/issues/5626
+dotnet_diagnostic.CA2254.severity = none
+
+# CS1591: Commentaire XML manquant pour le type ou le membre visible publiquement
+# WHY   : On ne force pas bêtement à avoir des commentaires XML sur 100% des membres public.
+dotnet_diagnostic.CS1591.severity = none
